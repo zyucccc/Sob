@@ -18,6 +18,6 @@ public class FileInterpreter extends InterpreterTest{
          File file = new File(fileName);
          FileInterpreter fileInterpreter = new FileInterpreter(file);
          fileInterpreter.processFile();
-         //我就试试
+         
     }
 }
