@@ -8,7 +8,6 @@ import com.paracamplus.ilp1.interfaces.IASTfactory;
 import com.paracamplus.ilp1.interfaces.IASTprogram;
 import com.paracamplus.ilp1.parser.ParseException;
 import com.paracamplus.ilp1.parser.ilpml.ILPMLListener;
-import com.paracamplus.ilp1.tools.Input;
 
 import antlr4.ILPMLgrammar1tme2Lexer;
 import antlr4.ILPMLgrammar1tme2Parser;
@@ -18,12 +17,8 @@ public class ILPMLParser extends com.paracamplus.ilp1.parser.ilpml.ILPMLParser{
 		super(factory);
 	}
 	
-protected Input input;
-	
-	public void setInput(Input input) {
-		this.input = input;
-	}
-	
+
+	@Override
     public IASTprogram getProgram() throws ParseException {
 		try {
 			ANTLRInputStream in = new ANTLRInputStream(input.getText());

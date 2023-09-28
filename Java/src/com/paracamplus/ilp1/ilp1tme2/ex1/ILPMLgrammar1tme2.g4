@@ -36,7 +36,10 @@ grammar ILPMLgrammar1tme2;
 prog returns [com.paracamplus.ilp1.interfaces.IASTprogram node] 
     : (exprs+=expr ';'?) * EOF
     ;
+func returns [com.paracamplus.ilp1.interfaces.IASTprogram node]
+:'function' name=IDENT '('vars+=IDENT? (',' vars+=IDENT)*')' body=expr #DefinitionFunction
 
+;
 
 /*
  * Expressions
@@ -71,6 +74,9 @@ expr returns [com.paracamplus.ilp1.interfaces.IASTexpression node]
 
 // variables
     | var=IDENT # Variable
+    
+// séquence d'affectation
+    | var_affectation=IDENT '=' body_affectation=expr    # Affectation
 
 // déclaration de variable locale
     | 'let' vars+=IDENT '=' vals+=expr ('and' vars+=IDENT '=' vals+=expr)* 
@@ -80,17 +86,11 @@ expr returns [com.paracamplus.ilp1.interfaces.IASTexpression node]
     | 'if' condition=expr 'then' consequence=expr 
         ('else' alternant=expr)? # Alternative
     
-  // séquence d'affectation
-    | var=IDENT '=' valeur=expr    # Affectation
     
   // boucle while
     | 'while' argw1=expr 'do' argw2=expr #BoucleWhile
-       
-   // definition fonctions
-      | 'function' name=IDENT '('vars+=IDENT? (',' vars+=IDENT)*')' body=expr #DefinitionFunction
-      //| 'function' name=IDENT '('vars+=IDENT? (',' vars+=IDENT)* ')' body=expr #abc
-       
        ;
+ 
    
 /*
  * Règles lexicales.
