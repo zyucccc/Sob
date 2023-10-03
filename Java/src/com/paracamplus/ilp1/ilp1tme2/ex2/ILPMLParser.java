@@ -35,6 +35,8 @@ public class ILPMLParser extends com.paracamplus.ilp1.parser.ilpml.ILPMLParser{
 			ILPMLListener extractor = new ILPMLListener(factory);
 			walker.walk(extractor, tree);
 			System.out.println("cpt="+extractor.getCpt());
+			CountConstants countConstant = new CountConstants();
+            System.out.println("Nb.CountConstants: " + countConstant.visit(tree.node,0));
 			return tree.node;
 		} catch (Exception e) {
 			throw new ParseException(e);
