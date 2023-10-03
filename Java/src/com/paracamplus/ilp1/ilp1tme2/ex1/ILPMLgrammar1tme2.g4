@@ -36,6 +36,8 @@ grammar ILPMLgrammar1tme2;
 prog returns [com.paracamplus.ilp1.interfaces.IASTprogram node] 
     : (exprs+=expr ';'?) * EOF
     ;
+    
+//fonction
 func returns [com.paracamplus.ilp1.interfaces.IASTprogram node]
 :'function' name=IDENT '('vars+=IDENT? (',' vars+=IDENT)*')' body=expr #DefinitionFunction
 
@@ -88,7 +90,7 @@ expr returns [com.paracamplus.ilp1.interfaces.IASTexpression node]
     
     
   // boucle while
-    | 'while' argw1=expr 'do' argw2=expr #BoucleWhile
+    | 'while' condition=expr 'do' body=expr #BoucleWhile
        ;
  
    
