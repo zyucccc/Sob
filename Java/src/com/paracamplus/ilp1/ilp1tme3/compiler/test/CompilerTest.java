@@ -35,7 +35,7 @@ import com.paracamplus.ilp1.parser.xml.XMLParser;
 @RunWith(Parameterized.class)
 public class CompilerTest {
     
-    protected static String[] samplesDirName = { "SamplesILP3" };
+    protected static String[] samplesDirName = { "SamplesTME3" };
     protected static String pattern = ".*\\.ilpml";
     protected static String scriptCommand = "Java/src/com/paracamplus/ilp1/ilp1tme3/C/compileThenRun.sh +gc";
     protected static String XMLgrammarFile = "XMLGrammars/grammar1.rng";
