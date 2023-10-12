@@ -6,7 +6,7 @@
  * GPL version 3
  * ******************************************************************
  */
-   
+//
 #include "ilp.h"
 
 char *ilpObj_Id = "$Id: ilpObj.c 1057 2011-08-19 12:14:07Z queinnec $";
@@ -136,6 +136,17 @@ struct ILP_Class ILP_object_Exception_class = {
            ILP_classOf } } }
 };
 
+struct ILP_Class ILP_object_Vector_class = {
+     &ILP_object_Class_class,
+     { { &ILP_object_Object_class,
+         "Vector",
+         0,
+         NULL,
+         2,
+         { ILP_print,
+           ILP_classOf } } }
+};
+
 /** Predefined fields
  *
  * Fields yielding non-ILP values are not considered as fields.
@@ -181,8 +192,8 @@ struct ILP_Field ILP_object_value_field = {
          0 } }
 };
 
-/** Predefined methods 
- * 
+/** Predefined methods
+ *
  *     o.print() prints the object o
  *     o.getClass() yields the class of o
  */
@@ -206,7 +217,7 @@ struct ILP_Method ILP_object_classOf_method = {
 };
 
 /** Boolean
- * 
+ *
  */
 
 struct ILP_Object ILP_object_true = {
@@ -226,7 +237,7 @@ struct ILP_Object ILP_object_false = {
 
 static struct ILP_Exception ILP_the_exception =  {
      &ILP_object_Exception_class,
-     { { "", 
+     { { "",
          { NULL } } }
 };
 
@@ -350,7 +361,7 @@ ILP_is_subclass_of (ILP_Class oclass, ILP_Class otherclass)
           }
           return 0;
      }
-}          
+}
 
 /** Find the appropriate method */
 
@@ -360,37 +371,37 @@ ILP_find_method (ILP_Object receiver,
                  int argc)
 {
      ILP_Class oclass = receiver->_class;
-     if ( ! ILP_is_subclass_of(oclass, 
+     if ( ! ILP_is_subclass_of(oclass,
                                method->_content.asMethod.class_defining) ) {
           /* Signaler une absence de méthode */
           snprintf(ILP_the_exception._content.asException.message,
                    ILP_EXCEPTION_BUFFER_LENGTH,
                    "No such method %s\nCulprit: 0x%p\n",
-                   method->_content.asMethod.name, 
+                   method->_content.asMethod.name,
                    (void*) receiver);
           /*DEBUG*/
           fprintf(stderr, "%s", ILP_the_exception._content.asException.message);
           ILP_the_exception._content.asException.culprit[0] = receiver;
-          ILP_the_exception._content.asException.culprit[1] = 
+          ILP_the_exception._content.asException.culprit[1] =
                (ILP_Object) method;
           ILP_the_exception._content.asException.culprit[2] = NULL;
           ILP_throw((ILP_Object) &ILP_the_exception);
           /* UNREACHED */
-          return NULL;          
+          return NULL;
      };
      if ( argc != method->_content.asMethod.arity ) {
           /* Signaler une erreur d'arité */
           snprintf(ILP_the_exception._content.asException.message,
                    ILP_EXCEPTION_BUFFER_LENGTH,
                    "Method %s arity error: %d instead of %d\nCulprit: 0x%p\n",
-                   method->_content.asMethod.name, 
+                   method->_content.asMethod.name,
                    argc,
                    method->_content.asMethod.arity,
                    (void*) receiver);
           /*DEBUG*/
           fprintf(stderr, "%s", ILP_the_exception._content.asException.message);
           ILP_the_exception._content.asException.culprit[0] = receiver;
-          ILP_the_exception._content.asException.culprit[1] = 
+          ILP_the_exception._content.asException.culprit[1] =
                (ILP_Object) method;
           ILP_the_exception._content.asException.culprit[2] = NULL;
           ILP_throw((ILP_Object) &ILP_the_exception);
@@ -403,50 +414,50 @@ ILP_find_method (ILP_Object receiver,
      }
 }
 
-ILP_Object 
-ILP_find_and_call_super_method ( 
-     ILP_Method current_method, 
-     ILP_general_function super_method, 
+ILP_Object
+ILP_find_and_call_super_method (
+     ILP_Method current_method,
+     ILP_general_function super_method,
      ILP_Object arguments[] )
-{ 
-     /* assert( super_method != NULL ); */ 
+{
+     /* assert( super_method != NULL ); */
      ILP_Object self = arguments[0];
      int arity = current_method->_content.asMethod.arity;
-     switch ( arity ) { 
-          case 0: { 
-               return (*super_method)(NULL, self); 
-          } 
-          case 1: { 
-               return (*super_method)(NULL, self, arguments[1]); 
-          } 
-          case 2: { 
-               return (*super_method)(NULL, self, arguments[1], arguments[2]); 
-          } 
-          case 3: { 
-               return (*super_method)(NULL, self, arguments[1],  
-                                            arguments[2],  
-                                            arguments[3]); 
-          } 
-          default: { 
-               snprintf(ILP_the_exception._content.asException.message, 
-                        ILP_EXCEPTION_BUFFER_LENGTH, 
-                        "Cannot invoke supermethod %snCulprit: 0x%pn", 
-                        current_method->_content.asMethod.name,  
-                        (void*) self ); 
-               /*DEBUG*/ 
-               fprintf(stderr, "%s", ILP_the_exception._content.asException.message); 
-               ILP_the_exception._content.asException.culprit[0] = self; 
-               ILP_the_exception._content.asException.culprit[1] =  
-                    (ILP_Object) current_method; 
-               ILP_the_exception._content.asException.culprit[2] = NULL; 
-               ILP_throw((ILP_Object) &ILP_the_exception); 
-               /* UNREACHED */ 
-               return NULL; 
-          } 
-     } 
+     switch ( arity ) {
+          case 0: {
+               return (*super_method)(NULL, self);
+          }
+          case 1: {
+               return (*super_method)(NULL, self, arguments[1]);
+          }
+          case 2: {
+               return (*super_method)(NULL, self, arguments[1], arguments[2]);
+          }
+          case 3: {
+               return (*super_method)(NULL, self, arguments[1],
+                                            arguments[2],
+                                            arguments[3]);
+          }
+          default: {
+               snprintf(ILP_the_exception._content.asException.message,
+                        ILP_EXCEPTION_BUFFER_LENGTH,
+                        "Cannot invoke supermethod %snCulprit: 0x%pn",
+                        current_method->_content.asMethod.name,
+                        (void*) self );
+               /*DEBUG*/
+               fprintf(stderr, "%s", ILP_the_exception._content.asException.message);
+               ILP_the_exception._content.asException.culprit[0] = self;
+               ILP_the_exception._content.asException.culprit[1] =
+                    (ILP_Object) current_method;
+               ILP_the_exception._content.asException.culprit[2] = NULL;
+               ILP_throw((ILP_Object) &ILP_the_exception);
+               /* UNREACHED */
+               return NULL;
+          }
+     }
 }
 
-ILP_Object 
+ILP_Object
 ILP_dont_call_super_method (
      ILP_Method current_method,
      ILP_general_function super_method,
@@ -457,12 +468,12 @@ ILP_dont_call_super_method (
      snprintf(ILP_the_exception._content.asException.message,
               ILP_EXCEPTION_BUFFER_LENGTH,
               "No supermethod %s\nCulprit: 0x%p\n",
-              current_method->_content.asMethod.name, 
+              current_method->_content.asMethod.name,
               (void*) self );
      /*DEBUG*/
      fprintf(stderr, "%s", ILP_the_exception._content.asException.message);
      ILP_the_exception._content.asException.culprit[0] = self;
-     ILP_the_exception._content.asException.culprit[1] = 
+     ILP_the_exception._content.asException.culprit[1] =
           (ILP_Object) current_method;
      ILP_the_exception._content.asException.culprit[2] = NULL;
      ILP_throw((ILP_Object) &ILP_the_exception);
@@ -485,7 +496,7 @@ ILP_find_invokee (ILP_Object closure, int argc)
                    (void*) closure);
           /*DEBUG*/
           fprintf(stderr, "%s", ILP_the_exception._content.asException.message);
-          ILP_the_exception._content.asException.culprit[0] = 
+          ILP_the_exception._content.asException.culprit[0] =
                (ILP_Object) closure;
           ILP_the_exception._content.asException.culprit[1] = NULL;
           ILP_throw((ILP_Object) &ILP_the_exception);
@@ -507,7 +518,7 @@ ILP_make_closure(ILP_general_function f, int arity, int argc, ...)
      closure->_content.asClosure.arity = arity;
      va_start(args, argc);
      for ( i=0 ; i<argc ; i++ ) {
-          closure->_content.asClosure.closed_variables[i] = 
+          closure->_content.asClosure.closed_variables[i] =
                va_arg(args, ILP_Object);
      }
      va_end(args);
@@ -585,7 +596,7 @@ ILP_malloc (int size, ILP_Class class)
 }
 
 ILP_Object
-ILP_make_instance (ILP_Class class) 
+ILP_make_instance (ILP_Class class)
 {
      int size = sizeof(ILP_Class);
      size += sizeof(ILP_Object) * class->_content.asClass.fields_count;
@@ -646,7 +657,7 @@ ILP_concatenate_strings (ILP_Object o1, ILP_Object o2)
      int size1 = o1->_content.asString._size;
      int total_size = size1 + o2->_content.asString._size;
      ILP_Object result = ILP_AllocateString(total_size);
-     memmove(&(result->_content.asString.asCharacter[0]), 
+     memmove(&(result->_content.asString.asCharacter[0]),
              o1->_content.asString.asCharacter,
              o1->_content.asString._size);
      memmove(&(result->_content.asString.asCharacter[size1]),
@@ -923,7 +934,7 @@ ILP_xor (ILP_Object o1, ILP_Object o2)
 /** Primitives */
 
 ILP_Object
-ILP_newline () 
+ILP_newline ()
 {
      fputc('\n', stdout);
      return ILP_FALSE;
@@ -1011,7 +1022,7 @@ ILP_type_of (ILP_Object self)
  * as advocated by ObjVlisp. */
 
 ILP_Object
-ILP_classOf (ILP_Object self) 
+ILP_classOf (ILP_Object self)
 {
      return (ILP_Object) (self->_class);
 }
@@ -1023,3 +1034,6 @@ ILPm_classOf (ILP_Closure useless, ILP_Object self)
 }
 
 /* end of ilpObj.c */
+
+
+

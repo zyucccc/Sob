@@ -82,6 +82,15 @@ typedef struct ILP_Object {
           struct asBox {
                struct ILP_Object*   value;
           } asBox;
+//          struct asVector {
+//                         int _taille;
+//                         struct ILP_Object* valeur[1];
+//                    } asVector;
+          struct asVector {
+                         int _taille;
+                         struct ILP_Object* valeur[1];
+                    } asVector;
+
      }                  _content;
 } *ILP_Object;
 
@@ -156,7 +165,7 @@ typedef struct ILP_Box {
      }                 _content;
 } *ILP_Box;
 
-/** Generate the type of classes with <i> methods. */ 
+/** Generate the type of classes with <i> methods. */
 
 #define ILP_GenerateClass(i) \
 typedef struct ILP_Class##i {                                   \
@@ -220,6 +229,13 @@ extern ILP_Object ILP_dont_call_super_method(
   if ( ! ILP_isBoolean(o) ) { \
        ILP_domain_error("Not a boolean", o); \
   };
+/** Vector */
+#define ILP_AllocateVector(taille) \
+	    ILP_malloc(sizeof(struct ILP_Object)+(sizeof(struct ILP_Object)*(taille)), &ILP_object_Vector_class)
+
+#define ILP_isVector(o) \
+  ((o)->_class == &ILP_object_Vector_class)
+
 
 /** Integer */
 
@@ -354,6 +370,7 @@ extern struct ILP_Class ILP_object_Integer_class;
 extern struct ILP_Class ILP_object_Float_class;
 extern struct ILP_Class ILP_object_Boolean_class;
 extern struct ILP_Class ILP_object_String_class;
+extern struct ILP_Class ILP_object_Vector_class;
 extern struct ILP_Class ILP_object_Exception_class;
 extern struct ILP_Field ILP_object_super_field;
 extern struct ILP_Field ILP_object_defining_class_field;
@@ -402,7 +419,7 @@ extern ILP_general_function ILP_find_method (ILP_Object receiver,
                                              ILP_Method method,
                                              int argc);
 extern ILP_general_function ILP_find_invokee (ILP_Object closure, int argc);
-extern ILP_Object ILP_make_closure(ILP_general_function f, 
+extern ILP_Object ILP_make_closure(ILP_general_function f,
                                    int arity, int argc, ...);
 extern ILP_Object ILP_invoke(ILP_Object f, int argc, ...);
 extern ILP_Object ILP_make_box(ILP_Object o);
@@ -414,7 +431,7 @@ extern ILP_Object ILP_make_box(ILP_Object o);
 #  include <gc.h>
 #  define ILP_START_GC GC_init()
 #  define ILP_MALLOC GC_malloc
-#else 
+#else
 #  define ILP_START_GC
 #  define ILP_MALLOC malloc
 #endif
@@ -440,3 +457,5 @@ extern ILP_Object ILP_domain_error (char *message, ILP_Object o);
 #endif /* ILPOBJ_H */
 
 /* end of ilpObj.h */
+
+

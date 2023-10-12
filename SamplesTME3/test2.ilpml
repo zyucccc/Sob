@@ -1,0 +1,1 @@
+let vector = makeVector (10,10) in vectorLength(vector);

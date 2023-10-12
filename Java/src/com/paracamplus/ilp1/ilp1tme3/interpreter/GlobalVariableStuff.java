@@ -9,7 +9,10 @@ package com.paracamplus.ilp1.ilp1tme3.interpreter;
 import java.io.Writer;
 import java.math.BigDecimal;
 
+import com.paracamplus.ilp1.ilp1tme3.interpreter.primitive.MakeVector;
 import com.paracamplus.ilp1.ilp1tme3.interpreter.primitive.Sinus;
+import com.paracamplus.ilp1.ilp1tme3.interpreter.primitive.VectorLength;
+import com.paracamplus.ilp1.ilp1tme3.interpreter.primitive.Vectorget;
 import com.paracamplus.ilp1.interpreter.interfaces.IGlobalVariableEnvironment;
 import com.paracamplus.ilp1.interpreter.primitive.Newline;
 import com.paracamplus.ilp1.interpreter.primitive.Print;
@@ -28,6 +31,9 @@ public class GlobalVariableStuff {
         env.addGlobalVariableValue(new ToString());
         env.addGlobalVariableValue(new TypeOf());
         env.addGlobalVariableValue(new Sinus());
+        env.addGlobalVariableValue(new Vectorget());
+        env.addGlobalVariableValue(new VectorLength());
+        env.addGlobalVariableValue(new MakeVector());
         
         
   }
