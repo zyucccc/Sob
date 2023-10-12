@@ -4,7 +4,7 @@
  * See http://mooc.paracamplus.com/ilp9
  * GPL version 3
  ***************************************************************** */
-package com.paracamplus.ilp1.ilp1tme3.intrepreter.primitive;
+package com.paracamplus.ilp1.ilp1tme3.interpreter.primitive;
 
 
 import java.math.BigInteger;

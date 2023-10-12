@@ -4,7 +4,7 @@
  * See http://mooc.paracamplus.com/ilp9
  * GPL version 3
  ***************************************************************** */
-package com.paracamplus.ilp1.ilp1tme3.intrepreter.test;
+package com.paracamplus.ilp1.ilp1tme3.interpreter.test;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.paracamplus.ilp1.ast.ASTfactory;
-import com.paracamplus.ilp1.ilp1tme3.intrepreter.GlobalVariableStuff;
+import com.paracamplus.ilp1.ilp1tme3.interpreter.GlobalVariableStuff;
 import com.paracamplus.ilp1.interfaces.IASTfactory;
 import com.paracamplus.ilp1.interpreter.GlobalVariableEnvironment;
 

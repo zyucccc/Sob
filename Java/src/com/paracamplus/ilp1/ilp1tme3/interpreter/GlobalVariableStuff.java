@@ -4,12 +4,12 @@
  * See http://mooc.paracamplus.com/ilp9
  * GPL version 3
  ***************************************************************** */
-package com.paracamplus.ilp1.ilp1tme3.intrepreter;
+package com.paracamplus.ilp1.ilp1tme3.interpreter;
 
 import java.io.Writer;
 import java.math.BigDecimal;
 
-import com.paracamplus.ilp1.ilp1tme3.intrepreter.primitive.Sinus;
+import com.paracamplus.ilp1.ilp1tme3.interpreter.primitive.Sinus;
 import com.paracamplus.ilp1.interpreter.interfaces.IGlobalVariableEnvironment;
 import com.paracamplus.ilp1.interpreter.primitive.Newline;
 import com.paracamplus.ilp1.interpreter.primitive.Print;
