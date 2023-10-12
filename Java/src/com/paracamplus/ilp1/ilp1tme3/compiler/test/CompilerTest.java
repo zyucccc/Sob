@@ -17,15 +17,16 @@ import org.junit.runners.Parameterized.Parameters;
 
 import com.paracamplus.ilp1.ast.ASTfactory;
 import com.paracamplus.ilp1.compiler.CompilationException;
-import com.paracamplus.ilp1.compiler.Compiler;
+import com.paracamplus.ilp1.ilp1tme3.compiler.Compiler;
 import com.paracamplus.ilp1.compiler.GlobalVariableEnvironment;
-import com.paracamplus.ilp1.compiler.GlobalVariableStuff;
+
 import com.paracamplus.ilp1.compiler.OperatorEnvironment;
 import com.paracamplus.ilp1.compiler.OperatorStuff;
 import com.paracamplus.ilp1.compiler.interfaces.IGlobalVariableEnvironment;
 import com.paracamplus.ilp1.compiler.interfaces.IOperatorEnvironment;
 import com.paracamplus.ilp1.compiler.optimizer.IdentityOptimizer;
 import com.paracamplus.ilp1.compiler.test.CompilerRunner;
+import com.paracamplus.ilp1.ilp1tme3.compiler.GlobalVariableStuff;
 import com.paracamplus.ilp1.interfaces.IASTfactory;
 import com.paracamplus.ilp1.parser.ParseException;
 import com.paracamplus.ilp1.parser.ilpml.ILPMLParser;
